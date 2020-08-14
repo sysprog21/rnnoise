@@ -26,9 +26,18 @@
 */
 
 #include <stdio.h>
+#include <stdint.h>
+#include <sys/time.h>
+
 #include "rnnoise.h"
 
 #define FRAME_SIZE 480
+
+uint64_t usecs() {
+  struct timeval tv;
+  gettimeofday(&tv, NULL);
+  return (tv.tv_sec * (uint64_t)1000000 + tv.tv_usec);
+}
 
 int main(int argc, char **argv) {
   int i;
@@ -43,16 +52,23 @@ int main(int argc, char **argv) {
   }
   f1 = fopen(argv[1], "rb");
   fout = fopen(argv[2], "wb");
+
+  uint64_t t0 = usecs();
+  double runtime = 0.0;
   while (1) {
-    short tmp[FRAME_SIZE];
-    fread(tmp, sizeof(short), FRAME_SIZE, f1);
+    int16_t tmp[FRAME_SIZE];
+    fread(tmp, sizeof(int16_t), FRAME_SIZE, f1);
     if (feof(f1)) break;
     for (i=0;i<FRAME_SIZE;i++) x[i] = tmp[i];
     rnnoise_process_frame(st, x, x);
     for (i=0;i<FRAME_SIZE;i++) tmp[i] = x[i];
-    if (!first) fwrite(tmp, sizeof(short), FRAME_SIZE, fout);
+    if (!first) fwrite(tmp, sizeof(int16_t), FRAME_SIZE, fout);
     first = 0;
+    runtime += 0.01; // 480 samples at 48Khz mono -> 5ms
   }
+  double elapsed = (usecs() - t0) / 1000000.0;
+  fprintf(stdout, "processed %3.3f seconds in %3.3f seconds (%3.2fx realtime) \n", runtime, elapsed, runtime/elapsed);
+
   rnnoise_destroy(st);
   fclose(f1);
   fclose(fout);
