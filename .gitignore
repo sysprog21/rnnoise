@@ -1,0 +1,9 @@
+*.o
+*.a
+*.wav
+*.opus
+*.raw
+*.svg
+*.prof
+*.gperf
+osrc
