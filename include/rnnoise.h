@@ -65,5 +65,7 @@ RNNOISE_EXPORT RNNModel *rnnoise_model_from_file(FILE *f);
 
 RNNOISE_EXPORT void rnnoise_model_free(RNNModel *model);
 
+#ifdef __cplusplus
+}
 #endif
 #endif
