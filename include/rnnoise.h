@@ -28,6 +28,9 @@
 #ifndef RNNOISE_H
 #define RNNOISE_H 1
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include <stdio.h>
 
 
@@ -62,4 +65,5 @@ RNNOISE_EXPORT RNNModel *rnnoise_model_from_file(FILE *f);
 
 RNNOISE_EXPORT void rnnoise_model_free(RNNModel *model);
 
+#endif
 #endif
