@@ -1,4 +1,5 @@
-# RNNoise is a noise suppression library based on a recurrent neural network
+# RNNoise
+A noise suppression library based on a recurrent neural network.
 
 ## Build
 
