@@ -45,3 +45,8 @@ cd training ; ./bin2hdf5.py ../src/training.f32 500000 87 training.h5
 
 Training process will generate the RNN model weight code file (default is `rnn_data.c`) and layer definition header file (default is `rnn_data.h`).
 They can be used to refresh the `src/rnn_data.c`, `src/rnn_data.h` and rebuild the rnnoise library and/or examples.
+
+## License
+
+`rnnoise` is freely redistributable under the revised BSD license.
+Use of this source code is governed by a BSD-style license that can be found in the `COPYING` file.
