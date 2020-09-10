@@ -46,6 +46,7 @@
 #include "rnn_data.h"
 
 #define FRAME_SIZE_SHIFT 2
+/* 480 means 10ms for 4.8k sample rate */
 #define FRAME_SIZE (120<<FRAME_SIZE_SHIFT)
 #define WINDOW_SIZE (2*FRAME_SIZE)
 #define FREQ_SIZE (FRAME_SIZE + 1)
@@ -531,6 +532,8 @@ int main(int argc, char **argv) {
   DenoiseState *st;
   DenoiseState *noise_state;
   DenoiseState *noisy;
+
+  /* object for speech <-> feature */
   st = rnnoise_create(NULL);
   noise_state = rnnoise_create(NULL);
   noisy = rnnoise_create(NULL);
@@ -541,6 +544,8 @@ int main(int argc, char **argv) {
   f1 = fopen(argv[1], "r");
   f2 = fopen(argv[2], "r");
   maxCount = atoi(argv[3]);
+
+  /* pre skip in noise file */
   for(i=0;i<150;i++) {
     short tmp[FRAME_SIZE];
     fread(tmp, sizeof(short), FRAME_SIZE, f2);
@@ -557,6 +562,7 @@ int main(int argc, char **argv) {
     float E=0;
     if (count==maxCount) break;
     if ((count%1000)==0) fprintf(stderr, "%d\r", count);
+    /* random gain/filter/freq_range for speech and noise */
     if (++gain_change_count > 2821) {
       speech_gain = pow(10., (-40+(rand()%60))/20.);
       noise_gain = pow(10., (-30+(rand()%50))/20.);
@@ -596,11 +602,15 @@ int main(int argc, char **argv) {
     } else {
       for (i=0;i<FRAME_SIZE;i++) n[i] = 0;
     }
+
+    /* filters */
     biquad(x, mem_hp_x, x, b_hp, a_hp, FRAME_SIZE);
     biquad(x, mem_resp_x, x, b_sig, a_sig, FRAME_SIZE);
     biquad(n, mem_hp_n, n, b_hp, a_hp, FRAME_SIZE);
     biquad(n, mem_resp_n, n, b_noise, a_noise, FRAME_SIZE);
     for (i=0;i<FRAME_SIZE;i++) xn[i] = x[i] + n[i];
+
+    /* VAD */
     if (E > 1e9f) {
       vad_cnt=0;
     } else if (E > 1e8f) {
