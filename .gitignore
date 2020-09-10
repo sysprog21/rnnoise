@@ -6,4 +6,5 @@
 *.svg
 *.prof
 *.gperf
-osrc
+examples/bertool
+examples/rnnoise_demo
