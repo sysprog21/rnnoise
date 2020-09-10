@@ -1,6 +1,6 @@
-(1) cd src ; ./compile.sh
+(1) make src/denoise_training
 
-(2) ./denoise_training signal.raw noise.raw count > training.f32
+(2) src/denoise_training signal.raw noise.raw count > training.f32
 
     (note the matrix size and replace 500000 87 below)
 
