@@ -11,6 +11,8 @@ To compile, just type:
 make
 ```
 
+Sample noisy file `sample.wav` was included, and you can run `make check` to generate the processed one, `clean.wav`.
+
 ## Test
 
 While it is meant to be used as a library, a simple command-line tool is
