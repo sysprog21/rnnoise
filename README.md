@@ -4,8 +4,8 @@ A noise suppression library based on a recurrent neural network.
 ## Build
 
 Prerequisite
-* macOS: `brew install libsndfile`
-* Debian/Ubuntu: `sudo apt install libsndfile1-dev`
+* macOS: `brew install libsndfile libsoxr sox`
+* Debian/Ubuntu: `sudo apt install libsndfile1-dev libsoxr-dev libsox-dev`
 
 To compile, just type:
 ```shell
