@@ -1,12 +1,12 @@
 RNNoise is a noise suppression library based on a recurrent neural network.
 
+macOS: brew install libsndfile
+Debian/Ubuntu: sudo apt install libsndfile1-dev
+
 To compile, just type:
 % make
 
 While it is meant to be used as a library, a simple command-line tool is
-provided as an example. It operates on RAW 16-bit (machine endian) mono
-PCM files sampled at 48 kHz. It can be used as:
+provided as an example. It can be used as:
 
-examples/rnnoise_demo <number of channels> <maximum attenuation> < input.raw > output.raw
-
-The output is also a 16-bit raw PCM file.
+examples/rnnoise_demo input.wav output.wav

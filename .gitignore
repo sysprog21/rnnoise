@@ -1,10 +1,10 @@
 *.o
 *.a
-*.wav
-*.opus
 *.raw
 *.svg
 *.prof
 *.gperf
 examples/bertool
 examples/rnnoise_demo
+# generated
+clean.wav
