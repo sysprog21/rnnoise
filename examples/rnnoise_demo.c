@@ -35,6 +35,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "rnnoise.h"
 
@@ -80,6 +82,11 @@ int main(int argc, char **argv) {
   if (argc != 3) {
     fprintf(stderr, "usage: %s <noisy speech> <output denoised>\n", argv[0]);
     return 1;
+  }
+
+  if (access(argv[1], F_OK) == -1) {
+    fprintf(stderr, "FATAL: can not access file %s.\n", argv[0]);
+    return -1;
   }
 
   soxr_quality_spec_t const q_spec = soxr_quality_spec(SOXR_HQ, 0);
