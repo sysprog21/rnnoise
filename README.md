@@ -19,7 +19,7 @@ Sample noisy file `sample.wav` was included, and you can run `make check` to gen
 While it is meant to be used as a library, a simple command-line tool is
 provided as an example. It can be used as:
 ```shell
-examples/rnnoise_demo input.wav output.wav
+examples/rnnoise_demo sample.wav output.wav
 ```
 
 ## Training
