@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
   }
 
   if (access(argv[1], F_OK) == -1) {
-    fprintf(stderr, "FATAL: can not access file %s.\n", argv[0]);
+    fprintf(stderr, "FATAL: can not access file %s.\n", argv[1]);
     return -1;
   }
 
